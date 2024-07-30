@@ -44,17 +44,21 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
     local stashName, stashLabel = envPrefix..'_'..lockerNumber, locker.label
     
 	if not DoesEntityExist(entity) then
+        Unr3al.Logging('info', 'Player '..src..' is trying to open evidence with invalid entity')
         return
     end
 
     local canAccess, jobName, jobGrade = false, getPlayerJobName(src), getPlayerJobGrade(src)
     for _, data in pairs(locker.job) do
-        print(data[1], data[2], jobName, jobGrade)
+        Unr3al.Logging('debug', data[1], data[2], jobName, jobGrade)
         if data[1] == jobName and data[2] <= jobGrade then
             canAccess = true
         end
     end
-    if not canAccess then return end
+    if not canAccess then 
+        Unr3al.Logging('debug', 'Access not allowed')
+        return
+    end
     local inventory = exports.ox_inventory:GetInventory(stashName, false)
     if not inventory then
         exports.ox_inventory:RegisterStash(stashName, stashLabel, locker.stash.slots, locker.stash.weight, false, locker.job, locker.coords)
@@ -64,3 +68,23 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
     end
     exports.ox_inventory:forceOpenInventory(src, 'stash', stashName)
 end)
+
+
+
+Unr3al = {}
+Unr3al.Logging = function(code, ...)
+    if not Unr3al.TableContains({'error', 'debug', 'info'}, code) then
+        if not Config.Debug and code == 'debug' then return end
+        local action = ...
+        local args = {...}
+        table.remove(args, 1)
+
+        print(Config.LoggingTypes[action], ...)
+    else
+        if not Config.Debug and code ~= 'error' then return end
+        print(Config.LoggingTypes[code], ...)
+    end
+end
+if Config.checkForUpdates then
+    lib.versionCheck('FiveM-Quantum-Studios/qtm-evidence')
+end
