@@ -85,6 +85,6 @@ Unr3al.Logging = function(code, ...)
         print(Config.LoggingTypes[code], ...)
     end
 end
-if Config.checkForUpdates then
+if Config.CheckForUpdates then
     lib.versionCheck('FiveM-Quantum-Studios/qtm-evidence')
 end

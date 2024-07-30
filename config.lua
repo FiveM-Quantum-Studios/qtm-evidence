@@ -1,7 +1,7 @@
 Config = {}
 ----------------------------------------------------------------
 Config.Locale = 'en' --choices: en - English; cs - Czech; de - German; fr - French; pl - Polish; sk - Slovakia;
-Config.checkForUpdates = true
+Config.CheckForUpdates = true
 Config.Debug = true
 Config.Framework = 'ESX' --Currently only ESX and qb
 ----------------------------------------------------------------
