@@ -20,8 +20,20 @@ Config.Locations = {
             slots = 10
         },
         job = {
-            {'police', 0},
+            {'police', 1},
             {'offpolice', 0}
+        }
+    },
+    ['usmsevidence'] = { --Stash prefix
+        coords = vector3(443.16, -976.46, 30.689),
+        label = 'USMS Evidence',
+        stash = {
+            weight = 10000,
+            slots = 10
+        },
+        job = {
+            {'usms', 1},
+            {'offusms', 0}
         }
     }
 }
@@ -31,13 +43,13 @@ Config.Locations = {
 ----------------------------------------------------------------
 Config.Marker = {
     type = 20,
-    sizeX = 1.0,
-    sizeY = 1.0,
-    sizeZ = 1.0,
-    r = 255,
-    g = 255,
-    b = 255,
-    a = 100,
+    sizeX = 0.5,
+    sizeY = 0.5,
+    sizeZ = 0.5,
+    r = 30,
+    g = 150,
+    b = 30,
+    a = 255,
     rotate = true,
     distance = 2
 }
@@ -52,14 +64,14 @@ Config.Noti = {
 Config.Notification = function(source, notitype, message)
     if IsDuplicityVersion() then -- serverside
         TriggerClientEvent('ox_lib:notify', source, {
-            title = 'Meth lab',
+            title = 'Evidence locker',
             description = message,
             type = notitype,
             duration = 5000
         })
     else -- clientside
         lib.notify({
-            title = 'Meth lab',
+            title = 'Evidence locker',
             description = message,
             type = notitype,
             duration = 5000

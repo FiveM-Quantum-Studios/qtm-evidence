@@ -14,10 +14,13 @@ server_scripts {
 
 client_scripts {
     'client/*.lua',
-    'config.lua',
 }
 
 shared_scripts {
     'config.lua',
     '@ox_lib/init.lua'
+}
+
+files {
+    'locales/*.*'
 }

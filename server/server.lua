@@ -1,3 +1,6 @@
+lib.locale()
+lib.getLocale('ox_inventory', 'inventory_right_access')
+
 if Config.Framework == 'ESX' then
     ESX = exports["es_extended"]:getSharedObject()
 elseif Config.Framework == 'qb' then
@@ -55,7 +58,8 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
             canAccess = true
         end
     end
-    if not canAccess then 
+    if not canAccess then
+        Config.Notification(src, 'error', locale('inventory_right_access'))
         Unr3al.Logging('debug', 'Access not allowed')
         return
     end
@@ -73,8 +77,8 @@ end)
 
 Unr3al = {}
 Unr3al.Logging = function(code, ...)
-    if not Unr3al.TableContains({'error', 'debug', 'info'}, code) then
-        if not Config.Debug and code == 'debug' then return end
+
+    if not lib.table.contains({'error', 'debug', 'info'}, code) then
         local action = ...
         local args = {...}
         table.remove(args, 1)
