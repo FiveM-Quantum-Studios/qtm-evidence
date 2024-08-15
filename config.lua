@@ -3,8 +3,6 @@ Config = {}
 Config.CheckForUpdates = true
 Config.Debug = true
 ----------------------------------------------------------------
-
-----------------------------------------------------------------
 Config.Locations = {
     ['policeevidence'] = { --Stash prefix
         coords = vector3(452.46, -980.15, 30.68),
@@ -45,3 +43,9 @@ Config.Marker = {
     distance = 2
 }
 ----------------------------------------------------------------
+Config.Language = {
+    notify_title = "Evidence",
+    open_police_evidence = 'Open Evidence',
+    locker_number = "Locker Number",
+    inventory_right_access = "You can't access this?"
+}

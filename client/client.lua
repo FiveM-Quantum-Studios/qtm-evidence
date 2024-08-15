@@ -1,12 +1,7 @@
-lib.locale()
-lib.getLocale('ox_inventory', 'open_police_evidence')
-lib.getLocale('ox_inventory', 'locker_number')
-lib.getLocale('ox_inventory', 'inventory_right_access')
-
 local marker = Config.Marker
 for envPrefix, data in pairs(Config.Locations) do
     local coords = data.coords
-    local evMarker = lib.points.new({
+    lib.points.new({
         coords = coords,
         distance = 20,
         interactPoint = nil,
@@ -28,18 +23,18 @@ for envPrefix, data in pairs(Config.Locations) do
                             end
                         end
                         if not canAccess then
-                            qtm.Notification(nil, Config.Language.notifyTitle, 'error', locale('inventory_right_access'))
+                            qtm.Notification(nil, Config.Language.notify_title, 'error', Config.Language.inventory_right_access)
                             return
                         end
                         local input = lib.inputDialog(data.label, {
-                            {type = 'number', label = locale('locker_number'), icon = 'calculator', required = true, min = 1, max = 999},
+                            {type = 'number', label = Config.Language.locker_number, icon = 'calculator', required = true, min = 1, max = 999},
                           })
                         if not input then return end
                         TriggerServerEvent('qtm-evidence:server:openLocker', envPrefix, input[1], NetworkGetNetworkIdFromEntity(cache.ped))
                     end
                 end,
                 onEnter = function()
-                    qtm.TextUI.Show('[E] '..locale('open_police_evidence'))
+                    qtm.TextUI.Show('[E] - '..Config.Language.open_police_evidence)
                 end,
                 onExit = function()
                     qtm.TextUI.hide()

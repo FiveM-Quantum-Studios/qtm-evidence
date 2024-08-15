@@ -1,6 +1,3 @@
-lib.locale()
-lib.getLocale('ox_inventory', 'inventory_right_access')
-
 ---Get player job name
 ---@param src string
 ---@return string
@@ -45,18 +42,18 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
         end
     end
     if not canAccess then
-        Config.Notification(src, 'error', locale('inventory_right_access'))
+        qtm.Notification(src, Config.Language.notify_title, 'error', Config.Language.inventory_right_access)
         qtm.Logging('debug', 'Access not allowed')
         return
     end
-    local inventory = exports.ox_inventory:GetInventory(stashName, false)
+    local inventory = qtm.Inventory.GetInventory(stashName, false)
     if not inventory then
-        exports.ox_inventory:RegisterStash(stashName, stashLabel, locker.stash.slots, locker.stash.weight, false, locker.job, locker.coords)
-        while not exports.ox_inventory:GetInventory(stashName, false) do
+        qtm.Inventory.RegisterStash(stashName, stashLabel, locker.stash.slots, locker.stash.weight, false, locker.job, locker.coords)
+        while not qtm.Inventory.GetInventory(stashName, false) do
             Wait(500)
         end
     end
-    exports.ox_inventory:forceOpenInventory(src, 'stash', stashName)
+    qtm.Inventory.ForceOpenInventory(src, 'stash', stashName)
 end)
 
 
