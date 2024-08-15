@@ -1,32 +1,18 @@
 lib.locale()
 lib.getLocale('ox_inventory', 'inventory_right_access')
 
-if Config.Framework == 'ESX' then
-    ESX = exports["es_extended"]:getSharedObject()
-elseif Config.Framework == 'qb' then
-    QBCore = exports['qb-core']:GetCoreObject()
-end
-
 ---Get player job name
 ---@param src string
 ---@return string
 function getPlayerJobName(src)
-    if Config.Framework == 'ESX' then
-        return ESX.GetPlayerFromId(src).getJob().name
-    elseif Config.Framework == 'qb' then
-        return QBCore.Functions.GetPlayer(src).PlayerData.job.name
-    end
+    return qtm.Framework.GetJob(src).name
 end
 
 ---Get player job grade
 ---@param src string
 ---@return integer
 function getPlayerJobGrade(src)
-    if Config.Framework == 'ESX' then
-        return ESX.GetPlayerFromId(src).getJob().grade
-    elseif Config.Framework == 'qb' then
-        return QBCore.Functions.GetPlayer(src).PlayerData.job.grade.level
-    end
+    return qtm.Framework.GetJob(src).grade_level
 end
 
 ---Callback for getting player job name and grade
@@ -47,20 +33,20 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
     local stashName, stashLabel = envPrefix..'_'..lockerNumber, locker.label
     
 	if not DoesEntityExist(entity) then
-        Unr3al.Logging('info', 'Player '..src..' is trying to open evidence with invalid entity')
+        qtm.Logging('info', 'Player '..src..' is trying to open evidence with invalid entity')
         return
     end
 
     local canAccess, jobName, jobGrade = false, getPlayerJobName(src), getPlayerJobGrade(src)
     for _, data in pairs(locker.job) do
-        Unr3al.Logging('debug', data[1], data[2], jobName, jobGrade)
+        qtm.Logging('debug', data[1] .. data[2] .. jobName .. jobGrade)
         if data[1] == jobName and data[2] <= jobGrade then
             canAccess = true
         end
     end
     if not canAccess then
         Config.Notification(src, 'error', locale('inventory_right_access'))
-        Unr3al.Logging('debug', 'Access not allowed')
+        qtm.Logging('debug', 'Access not allowed')
         return
     end
     local inventory = exports.ox_inventory:GetInventory(stashName, false)
@@ -74,21 +60,6 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
 end)
 
 
-
-Unr3al = {}
-Unr3al.Logging = function(code, ...)
-
-    if not lib.table.contains({'error', 'debug', 'info'}, code) then
-        local action = ...
-        local args = {...}
-        table.remove(args, 1)
-
-        print(Config.LoggingTypes[action], ...)
-    else
-        if not Config.Debug and code ~= 'error' then return end
-        print(Config.LoggingTypes[code], ...)
-    end
-end
 if Config.CheckForUpdates then
     lib.versionCheck('FiveM-Quantum-Studios/qtm-evidence')
 end

@@ -28,7 +28,7 @@ for envPrefix, data in pairs(Config.Locations) do
                             end
                         end
                         if not canAccess then
-                            Config.Notification(src, 'error', locale('inventory_right_access'))
+                            qtm.Notification(nil, Config.Language.notifyTitle, 'error', locale('inventory_right_access'))
                             return
                         end
                         local input = lib.inputDialog(data.label, {
@@ -39,10 +39,10 @@ for envPrefix, data in pairs(Config.Locations) do
                     end
                 end,
                 onEnter = function()
-                    lib.showTextUI('[E] '..locale('open_police_evidence'))
+                    qtm.TextUI.Show('[E] '..locale('open_police_evidence'))
                 end,
                 onExit = function()
-                    lib.hideTextUI()
+                    qtm.TextUI.hide()
                 end
             })
         end,

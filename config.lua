@@ -2,13 +2,8 @@ Config = {}
 ----------------------------------------------------------------
 Config.CheckForUpdates = true
 Config.Debug = true
-Config.Framework = 'ESX' --Currently only ESX and qb
 ----------------------------------------------------------------
-Config.LoggingTypes = {
-    ['info'] = '[^4Info^0]',
-    ['debug'] = '[^3DEBUG^0]',
-    ['error'] = '[^1ERROR^0]',
-}
+
 ----------------------------------------------------------------
 Config.Locations = {
     ['policeevidence'] = { --Stash prefix
@@ -36,9 +31,6 @@ Config.Locations = {
         }
     }
 }
-
-
-
 ----------------------------------------------------------------
 Config.Marker = {
     type = 20,
@@ -52,29 +44,4 @@ Config.Marker = {
     rotate = true,
     distance = 2
 }
-----------------------------------------------------------------
-Config.Noti = {
-    --Notifications types:
-    success = 'success',
-    error = 'error',
-    info = 'inform',
-    warning = 'warning',
-}
-Config.Notification = function(source, notitype, message)
-    if IsDuplicityVersion() then -- serverside
-        TriggerClientEvent('ox_lib:notify', source, {
-            title = 'Evidence locker',
-            description = message,
-            type = notitype,
-            duration = 5000
-        })
-    else -- clientside
-        lib.notify({
-            title = 'Evidence locker',
-            description = message,
-            type = notitype,
-            duration = 5000
-        })
-    end
-end
 ----------------------------------------------------------------
