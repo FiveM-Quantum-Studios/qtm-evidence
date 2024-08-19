@@ -6,7 +6,7 @@ author 'Quantum Studios'
 description 'Advanced Evidence system'
 version '1.0.0'
 
-dependencies {'ox_lib', 'ox_inventory'}
+dependencies {'ox_lib', 'ox_inventory', 'qtm-lib'}
 
 server_scripts {
     'server/*.lua'
