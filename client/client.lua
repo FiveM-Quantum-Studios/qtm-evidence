@@ -37,7 +37,7 @@ for envPrefix, data in pairs(Config.Locations) do
                     qtm.TextUI.Show('[E] - '..Config.Language.open_police_evidence)
                 end,
                 onExit = function()
-                    qtm.TextUI.hide()
+                    qtm.TextUI.Hide()
                 end
             })
         end,
