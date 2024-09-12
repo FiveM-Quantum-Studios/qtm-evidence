@@ -1,23 +1,9 @@
----Get player job name
----@param src string
----@return string
-function getPlayerJobName(src)
-    return qtm.Framework.GetJob(src).name
-end
-
----Get player job grade
----@param src string
----@return integer
-function getPlayerJobGrade(src)
-    return qtm.Framework.GetJob(src).grade_level
-end
-
 ---Callback for getting player job name and grade
 ---@param source string
 ---@return string
 ---@return integer
 lib.callback.register('qtm-evidence:server:getJobAndGrade', function(source)
-    return getPlayerJobName(source), getPlayerJobGrade(source)
+    return qtm.Framework.GetJob(source).name, qtm.Framework.GetJob(source).grade_level
 end)
 
 ---Event for opening evidence locker
