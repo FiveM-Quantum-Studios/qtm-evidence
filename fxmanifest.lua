@@ -21,6 +21,8 @@ shared_scripts {
     '@ox_lib/init.lua'
 }
 
-files {
-    'locales/*.*'
+escrow_ignore {
+    'server/*.lua',
+    'client/*.lua',
+    'config.lua'
 }
