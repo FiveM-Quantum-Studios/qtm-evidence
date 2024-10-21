@@ -20,7 +20,7 @@ RegisterNetEvent('qtm-evidence:server:openLocker', function(envPrefix, lockerNum
         return
     end
 
-    local canAccess, jobName, jobGrade = false, getPlayerJobName(src), getPlayerJobGrade(src)
+    local canAccess, jobName, jobGrade = false, qtm.Framework.getJob(src).name, qtm.Framework.getJob(src).grade_level
     for _, data in pairs(locker.job) do
         qtm.Logging('debug', data[1] .. data[2] .. jobName .. jobGrade)
         if data[1] == jobName and data[2] <= jobGrade then
@@ -44,5 +44,5 @@ end)
 
 
 if Config.CheckForUpdates then
-    lib.versionCheck('FiveM-Quantum-Studios/qtm-evidence')
+    qtm.Server.VersionChecker('qtm-evidence')
 end

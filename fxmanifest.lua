@@ -17,8 +17,9 @@ client_scripts {
 }
 
 shared_scripts {
-    'config.lua',
-    '@ox_lib/init.lua'
+    '@ox_lib/init.lua',
+    '@qtm-lib/imports.lua',
+    'config.lua'
 }
 
 escrow_ignore {
